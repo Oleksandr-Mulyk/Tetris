@@ -4,7 +4,7 @@
     {
         internal SquareFigure()
         {
-            Coordinates = [(1,1), (2, 1), (1, 2), (2, 2)];
+            Coordinates = [new(1,1), new(2, 1), new(1, 2), new(2, 2)];
         }
 
         internal override Figure Rotate() => new SquareFigure();

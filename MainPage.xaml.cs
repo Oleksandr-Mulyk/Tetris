@@ -1,7 +1,6 @@
 ﻿using Tetris.Figures;
 
 using MauiColor = Microsoft.Maui.Graphics.Color;
-using Coordinate = (int X, int Y);
 using GridSize = (int ColumnCount, int RowCount);
 
 namespace Tetris
@@ -145,7 +144,7 @@ namespace Tetris
             if (_currentFigure == null)
             {
                 _currentFigure = _nextFigure ?? FigureGenerator.GetRandomFigure();
-                _figurePoint = (3, _currentFigure is Stick0Figure ? -3 : -2);
+                _figurePoint = new(3, _currentFigure is Stick0Figure ? -3 : -2);
                 _currentFigure!.Move(_figurePoint);
             }
 
@@ -164,7 +163,7 @@ namespace Tetris
 
         private void MoveLeft()
         {
-            List<Coordinate> newCoordinates = _currentFigure!.Coordinates.Select(coordinate => (--coordinate.X, coordinate.Y)).ToList();
+            List<Coordinate> newCoordinates = _currentFigure!.Coordinates.Select(coordinate => new Coordinate(--coordinate.X, coordinate.Y)).ToList();
             if (IsMovingValid(newCoordinates))
             {
                 ClearFigure(GridGlass, _currentFigure);
@@ -176,7 +175,7 @@ namespace Tetris
 
         private void MoveRight()
         {
-            List<Coordinate> newCoordinates = _currentFigure!.Coordinates.Select(coordinate => (++coordinate.X, coordinate.Y)).ToList();
+            List<Coordinate> newCoordinates = _currentFigure!.Coordinates.Select(coordinate => new Coordinate(++coordinate.X, coordinate.Y)).ToList();
             if (IsMovingValid(newCoordinates))
             {
                 ClearFigure(GridGlass, _currentFigure);
@@ -188,7 +187,7 @@ namespace Tetris
 
         private void MoveDown()
         {
-            List<Coordinate> newCoordinates = _currentFigure!.Coordinates.Select(coordinate => (coordinate.X, ++coordinate.Y)).ToList();
+            List<Coordinate> newCoordinates = _currentFigure!.Coordinates.Select(coordinate => new Coordinate(coordinate.X, ++coordinate.Y)).ToList();
             if (IsMovingValid(newCoordinates))
             {
                 ClearFigure(GridGlass, _currentFigure);
@@ -286,7 +285,7 @@ namespace Tetris
 
             ClearFigure(GridNext, _nextFigure!);
             _currentFigure = _nextFigure;
-            _figurePoint = (3, _currentFigure is Stick0Figure ? -3 : -2);
+            _figurePoint = new(3, _currentFigure is Stick0Figure ? -3 : -2);
             _currentFigure!.Move(_figurePoint);
             _nextFigure = FigureGenerator.GetRandomFigure();
             DrawFigure(GridNext, _nextFigure);

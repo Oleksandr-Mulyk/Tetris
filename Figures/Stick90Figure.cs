@@ -4,7 +4,7 @@
     {
         public Stick90Figure()
         {
-            Coordinates = [(0, 1), (1, 1), (2, 1), (3, 1)];
+            Coordinates = [new(0, 1), new(1, 1), new(2, 1), new(3, 1)];
         }
 
         internal override Figure Rotate() => new Stick0Figure();

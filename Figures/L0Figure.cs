@@ -4,7 +4,7 @@
     {
         internal L0Figure()
         {
-            Coordinates = [(1, 0), (2, 0), (2, 1), (2, 2)];
+            Coordinates = [new(1, 0), new(2, 0), new(2, 1), new(2, 2)];
         }
 
         internal override Figure Rotate() => new L90Figure();

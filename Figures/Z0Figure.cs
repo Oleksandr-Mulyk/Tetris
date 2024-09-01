@@ -4,7 +4,7 @@
     {
         internal Z0Figure()
         {
-            Coordinates = [(0, 1), (1, 1), (1, 2), (2, 2)];
+            Coordinates = [new(0, 1), new(1, 1), new(1, 2), new(2, 2)];
         }
 
         internal override Figure Rotate() => new Z90Figure();

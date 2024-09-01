@@ -4,7 +4,7 @@
     {
         internal R270Figure()
         {
-            Coordinates = [(0, 1), (0, 2), (1, 2), (2, 2)];
+            Coordinates = [new(0, 1), new(0, 2), new(1, 2), new(2, 2)];
         }
 
         internal override Figure Rotate() => new R0Figure();
