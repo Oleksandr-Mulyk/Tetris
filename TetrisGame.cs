@@ -5,6 +5,7 @@
         internal TetrisGame()
         {
             TetrisGlass = new TetrisGlass();
+            FigureSize = new(4, 4);
         }
     }
 }

@@ -8,8 +8,6 @@ namespace Tetris
     {
         ITetrisGame _game;
 
-        private readonly Size _nextSize = new (4, 4);
-
         private bool[,] _glassCellFilled;
 
         private readonly IDispatcherTimer _mainTimer;
@@ -35,7 +33,7 @@ namespace Tetris
             _glassCellFilled = new bool[_game.TetrisGlass.Size.Width, _game.TetrisGlass.Size.Height];
 
             InitializeGlass(GridGlass, _game.TetrisGlass.Size.Width, _game.TetrisGlass.Size.Height);
-            InitializeGlass(GridNext, _nextSize.Width, _nextSize.Height);
+            InitializeGlass(GridNext, _game.FigureSize.Width, _game.FigureSize.Height);
 
             _mainTimer = Dispatcher.CreateTimer();
             _mainTimer.Interval = TimeSpan.FromSeconds(1);
@@ -70,9 +68,9 @@ namespace Tetris
             }
 
             Border[,] bordersNext = GetBorderList(GridNext);
-            for (int i = 0; i < _nextSize.Width; i++)
+            for (int i = 0; i < _game.FigureSize.Width; i++)
             {
-                for (int j = 0; j < _nextSize.Height; j++)
+                for (int j = 0; j < _game.FigureSize.Height; j++)
                 {
                     bordersNext[i, j].Background = MauiColor.FromArgb("#919191");
                     bordersNext[i, j].Stroke = MauiColor.FromArgb("#6E6E6E");
