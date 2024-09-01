@@ -6,7 +6,7 @@ namespace Tetris
 {
     public partial class MainPage : ContentPage
     {
-        private readonly Size _glassSize = new(10, 20);
+        ITetrisGame _game;
 
         private readonly Size _nextSize = new (4, 4);
 
@@ -30,9 +30,11 @@ namespace Tetris
         {
             InitializeComponent();
 
-            _glassCellFilled = new bool[_glassSize.Width, _glassSize.Height];
+            _game = new TetrisGame();
 
-            InitializeGlass(GridGlass, _glassSize.Width, _glassSize.Height);
+            _glassCellFilled = new bool[_game.TetrisGlass.Size.Width, _game.TetrisGlass.Size.Height];
+
+            InitializeGlass(GridGlass, _game.TetrisGlass.Size.Width, _game.TetrisGlass.Size.Height);
             InitializeGlass(GridNext, _nextSize.Width, _nextSize.Height);
 
             _mainTimer = Dispatcher.CreateTimer();
@@ -55,12 +57,12 @@ namespace Tetris
         private void ButtonReset_Pressed(object? sender, EventArgs e)
         {
             _mainTimer?.Stop();
-            _glassCellFilled = new bool[_glassSize.Width, _glassSize.Height];
+            _glassCellFilled = new bool[_game.TetrisGlass.Size.Width, _game.TetrisGlass.Size.Height];
 
             Border[,] borders = GetBorderList(GridGlass);
-            for(int i = 0; i < _glassSize.Width; i++)
+            for(int i = 0; i < _game.TetrisGlass.Size.Width; i++)
             {
-                for (int j = 0;  j < _glassSize.Height; j++)
+                for (int j = 0;  j < _game.TetrisGlass.Size.Height; j++)
                 {
                     borders[i, j].Background = MauiColor.FromArgb("#919191");
                     borders[i, j].Stroke = MauiColor.FromArgb("#6E6E6E");
@@ -217,10 +219,10 @@ namespace Tetris
         private void CheckLines()
         {
             List<int> fullLines = new();
-            for (int i = 0; i < _glassSize.Height; i++)
+            for (int i = 0; i < _game.TetrisGlass.Size.Height; i++)
             {
                 bool lineIsFull = true;
-                for (int j = 0;  j < _glassSize.Width; j++)
+                for (int j = 0;  j < _game.TetrisGlass.Size.Width; j++)
                 {
                     lineIsFull &= _glassCellFilled[j, i];
                 }
@@ -236,7 +238,7 @@ namespace Tetris
                 {
                     for (int i = line; i >= 0; i--)
                     {
-                        for (int j = 0; j < _glassSize.Width; j++)
+                        for (int j = 0; j < _game.TetrisGlass.Size.Width; j++)
                         {
                             _glassCellFilled[j, i] = i != 0 && _glassCellFilled[j, i - 1];
                         }
@@ -244,9 +246,9 @@ namespace Tetris
                 }
 
                 Border[,] borders = GetBorderList(GridGlass);
-                for (int i = 0; i < _glassSize.Width; i++)
+                for (int i = 0; i < _game.TetrisGlass.Size.Width; i++)
                 {
-                    for (int j = 0; j < _glassSize.Height; j++)
+                    for (int j = 0; j < _game.TetrisGlass.Size.Height; j++)
                     {
                         borders[i, j].Background = _glassCellFilled[i, j] ? MauiColor.FromArgb("#141414") : MauiColor.FromArgb("#919191");
                         borders[i, j].Stroke = _glassCellFilled[i, j] ? MauiColor.FromArgb("#141414") : MauiColor.FromArgb("#6E6E6E");
@@ -313,7 +315,7 @@ namespace Tetris
         {
             foreach (Coordinate coordinate in coordinates)
             {
-                if (coordinate.X < 0 || coordinate.X >= _glassSize.Width || coordinate.Y >= _glassSize.Height
+                if (coordinate.X < 0 || coordinate.X >= _game.TetrisGlass.Size.Width || coordinate.Y >= _game.TetrisGlass.Size.Height
                     || (coordinate.Y >= 0 && _glassCellFilled[coordinate.X, coordinate.Y]))
                 {
                     return false;
