@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tetris.MainPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="50" Grid.ColumnSpan="2" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="120" />
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="GridGlass" VerticalOptions="Start" />
+        
+        <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+            <Grid x:Name="GridNext" HorizontalOptions="Start" />
+            <Label x:Name="LabelLevel" Text="Level 1" />
+            <Label Text="Score" />
+            <Label x:Name="LabelScore" Text="000000" />
+            <Label x:Name="LabelGameover" Text="" />
+        </VerticalStackLayout>
+
+
+        <HorizontalStackLayout Grid.Row="1">
+            <VerticalStackLayout Margin="5, 0">
+                <Label Text="Pause" />
+                <Button x:Name="ButtonPause" WidthRequest="30" HeightRequest="30" Background="Yellow" />
+            </VerticalStackLayout>
+            <VerticalStackLayout Margin="5, 0">
+                <Label Text="Start" />
+                <Button x:Name="ButtonStart" WidthRequest="30" HeightRequest="30" Background="Yellow" />
+            </VerticalStackLayout>
+            <VerticalStackLayout Margin="5, 0">
+                <Label Text="Reset" />
+                <Button x:Name="ButtonReset" WidthRequest="30" HeightRequest="30" Background="Yellow" />
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
+        
+        <HorizontalStackLayout Grid.Row="2">
+            <Button x:Name="ButtonLeft" WidthRequest="50" HeightRequest="50" Margin="0, 0, 5, 30" Background="Yellow" />
+            <Button x:Name="ButtonDown" WidthRequest="50" HeightRequest="50" Margin="5, 30, 5, 0" Background="Yellow" />
+            <Button x:Name="ButtonRight" WidthRequest="50" HeightRequest="50" Margin="5, 0, 0, 30" Background="Yellow" />
+        </HorizontalStackLayout>
+
+        <Button x:Name="ButtonRotate" Grid.Row="2" Grid.Column="1" WidthRequest="100" HeightRequest="100" Background="Yellow" />
+    </Grid>
+</ContentPage>
