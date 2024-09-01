@@ -1,15 +1,14 @@
 ﻿using Tetris.Figures;
 
 using MauiColor = Microsoft.Maui.Graphics.Color;
-using GridSize = (int ColumnCount, int RowCount);
 
 namespace Tetris
 {
     public partial class MainPage : ContentPage
     {
-        private readonly (int Width, int Height) _glassSize = (10, 20);
+        private readonly Size _glassSize = new(10, 20);
 
-        private readonly (int Width, int Height) _nextSize = (4, 4);
+        private readonly Size _nextSize = new (4, 4);
 
         private bool[,] _glassCellFilled;
 
@@ -327,11 +326,11 @@ namespace Tetris
         private static void ClearFigure(Grid grid, Figure figure)
         {
             Border[,] borders = GetBorderList(grid);
-            GridSize gridSize = GetGridSize(grid);
+            Size gridSize = GetGridSize(grid);
 
             foreach (Coordinate coordinate in figure.Coordinates)
             {
-                if (coordinate.X >= 0 && coordinate.Y >= 0 && coordinate.X < gridSize.ColumnCount && coordinate.Y < gridSize.RowCount)
+                if (coordinate.X >= 0 && coordinate.Y >= 0 && coordinate.X < gridSize.Width && coordinate.Y < gridSize.Height)
                 {
                     borders[coordinate.X, coordinate.Y].Background = MauiColor.FromArgb("#919191");
                     borders[coordinate.X, coordinate.Y].Stroke = MauiColor.FromArgb("#6E6E6E");
@@ -342,11 +341,11 @@ namespace Tetris
         private static void DrawFigure(Grid grid, Figure figure)
         {
             Border[,] borders = GetBorderList(grid);
-            GridSize gridSize = GetGridSize(grid);
+            Size gridSize = GetGridSize(grid);
 
             foreach (Coordinate coordinate in figure.Coordinates)
             {
-                if (coordinate.X >= 0 && coordinate.Y >= 0 && coordinate.X < gridSize.ColumnCount && coordinate.Y < gridSize.RowCount)
+                if (coordinate.X >= 0 && coordinate.Y >= 0 && coordinate.X < gridSize.Width && coordinate.Y < gridSize.Height)
                 {
                     borders[coordinate.X, coordinate.Y].Background = MauiColor.FromArgb("#141414");
                     borders[coordinate.X, coordinate.Y].Stroke = MauiColor.FromArgb("#141414");
@@ -357,21 +356,21 @@ namespace Tetris
         private static Border[,] GetBorderList(Grid grid)
         {
             Border[] borders = grid.Children.Where(child => child is Border).Select(child => (Border)child).ToArray();
-            GridSize gridSize = GetGridSize(grid);
+            Size gridSize = GetGridSize(grid);
 
-            Border[,] result = new Border[gridSize.ColumnCount, gridSize.RowCount];
+            Border[,] result = new Border[gridSize.Width, gridSize.Height];
 
-            for (int i = 0; i < gridSize.ColumnCount; i++)
+            for (int i = 0; i < gridSize.Width; i++)
             {
-                for (int j = 0; j < gridSize.RowCount; j++)
+                for (int j = 0; j < gridSize.Height; j++)
                 {
-                    result[i, j] = borders[i * gridSize.RowCount + j];
+                    result[i, j] = borders[i * gridSize.Height + j];
                 }
             }
 
             return result;
         }
 
-        private static GridSize GetGridSize(Grid grid) => (grid.ColumnDefinitions.Count, grid.RowDefinitions.Count);
+        private static Size GetGridSize(Grid grid) => new(grid.ColumnDefinitions.Count, grid.RowDefinitions.Count);
     }
 }
