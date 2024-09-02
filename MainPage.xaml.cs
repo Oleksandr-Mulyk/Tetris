@@ -8,8 +8,6 @@ namespace Tetris
     {
         ITetrisGame _game;
 
-        private bool[,] _glassCellFilled;
-
         private readonly IDispatcherTimer _mainTimer;
 
         private readonly IDispatcherTimer _actionTimer;
@@ -19,8 +17,6 @@ namespace Tetris
             InitializeComponent();
 
             _game = new TetrisGame();
-
-            _glassCellFilled = new bool[_game.TetrisGlass.Size.Width, _game.TetrisGlass.Size.Height];
 
             InitializeGlass(GridGlass, _game.TetrisGlass.Size.Width, _game.TetrisGlass.Size.Height);
             InitializeGlass(GridNext, _game.FigureSize.Width, _game.FigureSize.Height);
@@ -45,7 +41,7 @@ namespace Tetris
         private void ButtonReset_Pressed(object? sender, EventArgs e)
         {
             _mainTimer?.Stop();
-            _glassCellFilled = new bool[_game.TetrisGlass.Size.Width, _game.TetrisGlass.Size.Height];
+            _game.TetrisGlass.State = new bool[_game.TetrisGlass.Size.Width, _game.TetrisGlass.Size.Height];
 
             Border[,] borders = GetBorderList(GridGlass);
             for(int i = 0; i < _game.TetrisGlass.Size.Width; i++)
@@ -212,7 +208,7 @@ namespace Tetris
                 bool lineIsFull = true;
                 for (int j = 0;  j < _game.TetrisGlass.Size.Width; j++)
                 {
-                    lineIsFull &= _glassCellFilled[j, i];
+                    lineIsFull &= _game.TetrisGlass[j, i];
                 }
                 if (lineIsFull)
                 {
@@ -228,7 +224,7 @@ namespace Tetris
                     {
                         for (int j = 0; j < _game.TetrisGlass.Size.Width; j++)
                         {
-                            _glassCellFilled[j, i] = i != 0 && _glassCellFilled[j, i - 1];
+                            _game.TetrisGlass[j, i] = i != 0 && _game.TetrisGlass[j, i - 1];
                         }
                     }
                 }
@@ -238,8 +234,8 @@ namespace Tetris
                 {
                     for (int j = 0; j < _game.TetrisGlass.Size.Height; j++)
                     {
-                        borders[i, j].Background = _glassCellFilled[i, j] ? MauiColor.FromArgb("#141414") : MauiColor.FromArgb("#919191");
-                        borders[i, j].Stroke = _glassCellFilled[i, j] ? MauiColor.FromArgb("#141414") : MauiColor.FromArgb("#6E6E6E");
+                        borders[i, j].Background = _game.TetrisGlass[i, j] ? MauiColor.FromArgb("#141414") : MauiColor.FromArgb("#919191");
+                        borders[i, j].Stroke = _game.TetrisGlass[i, j] ? MauiColor.FromArgb("#141414") : MauiColor.FromArgb("#6E6E6E");
                     }
                 }
 
@@ -269,7 +265,7 @@ namespace Tetris
         {
             foreach (Coordinate coordinate in _game.CurrentFigure!.Coordinates)
             {
-                _glassCellFilled[coordinate.X, coordinate.Y] = true;
+                _game.TetrisGlass[coordinate.X, coordinate.Y] = true;
             }
 
             ClearFigure(GridNext, _game.NextFigure!);
@@ -304,7 +300,7 @@ namespace Tetris
             foreach (Coordinate coordinate in coordinates)
             {
                 if (coordinate.X < 0 || coordinate.X >= _game.TetrisGlass.Size.Width || coordinate.Y >= _game.TetrisGlass.Size.Height
-                    || (coordinate.Y >= 0 && _glassCellFilled[coordinate.X, coordinate.Y]))
+                    || (coordinate.Y >= 0 && _game.TetrisGlass[coordinate.X, coordinate.Y]))
                 {
                     return false;
                 }

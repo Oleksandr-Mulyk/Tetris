@@ -1,19 +1,19 @@
 ﻿namespace Tetris
 {
-    internal class ITetrisGame
+    internal interface ITetrisGame
     {
-        internal ITetrisGlass TetrisGlass { get; set; }
+        public ITetrisGlass TetrisGlass { get; set; }
 
-        internal Size FigureSize { get; set; }
+        public Size FigureSize { get; set; }
 
-        internal Figure CurrentFigure { get; set; }
+        public Figure CurrentFigure { get; set; }
 
-        internal Figure NextFigure { get; set; }
+        public Figure NextFigure { get; set; }
 
-        internal Coordinate FigurePoint { get; set; }
+        public Coordinate FigurePoint { get; set; }
 
-        internal int Score { get; set; }
+        public int Score { get; set; }
 
-        internal int Level { get; set; }
+        public int Level { get; set; }
     }
 }

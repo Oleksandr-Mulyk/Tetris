@@ -1,6 +1,6 @@
 ﻿namespace Tetris
 {
-    internal struct Size
+    public struct Size
     {
         internal int Width { get; set; }
 

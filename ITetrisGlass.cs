@@ -1,7 +1,11 @@
 ﻿namespace Tetris
 {
-    internal class ITetrisGlass
+    internal interface ITetrisGlass
     {
-        internal Size Size { get; set; }
+        public Size Size { get; set; }
+
+        public bool[,] State { get; set; }
+
+        public bool this[int X, int Y] { get; set; }
     }
 }
