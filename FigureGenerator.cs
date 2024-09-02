@@ -7,7 +7,7 @@ namespace Tetris
         internal static Figure GetRandomFigure()
         {
             Random rnd = new();
-            int figureIndex = rnd.Next(0, 14);
+            int figureIndex = rnd.Next(0, 18);
 
             return figureIndex switch
             {
@@ -26,6 +26,10 @@ namespace Tetris
                 12 => new R90Figure(),
                 13 => new R180Figure(),
                 14 => new R270Figure(),
+                15 => new T0Figure(),
+                16 => new T90Figure(),
+                17 => new T180Figure(),
+                18 => new T270Figure(),
                 _ => throw new NotImplementedException()
             };
         }
