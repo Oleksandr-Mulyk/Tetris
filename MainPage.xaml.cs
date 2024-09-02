@@ -14,8 +14,6 @@ namespace Tetris
 
         private readonly IDispatcherTimer _actionTimer;
 
-        private Coordinate _figurePoint;
-
         private int _score = 0;
 
         private int _level = 1;
@@ -139,8 +137,8 @@ namespace Tetris
             if (_game.CurrentFigure == null)
             {
                 _game.CurrentFigure = _game.NextFigure ?? FigureGenerator.GetRandomFigure();
-                _figurePoint = new(3, _game.CurrentFigure is Stick0Figure ? -3 : -2);
-                _game.CurrentFigure!.Move(_figurePoint);
+                _game.FigurePoint = new(3, _game.CurrentFigure is Stick0Figure ? -3 : -2);
+                _game.CurrentFigure!.Move(_game.FigurePoint);
             }
 
             if (nextFigureNeded)
@@ -164,7 +162,7 @@ namespace Tetris
                 ClearFigure(GridGlass, _game.CurrentFigure);
                 _game.CurrentFigure.Coordinates = newCoordinates;
                 DrawFigure(GridGlass, _game.CurrentFigure);
-                _figurePoint.X--;
+                _game.FigurePoint = new(_game.FigurePoint.X - 1, _game.FigurePoint.Y);
             }
         }
 
@@ -176,7 +174,7 @@ namespace Tetris
                 ClearFigure(GridGlass, _game.CurrentFigure);
                 _game.CurrentFigure.Coordinates = newCoordinates;
                 DrawFigure(GridGlass, _game.CurrentFigure);
-                _figurePoint.X++;
+               _game.FigurePoint = new(_game.FigurePoint.X + 1, _game.FigurePoint.Y);
             }
         }
 
@@ -188,7 +186,7 @@ namespace Tetris
                 ClearFigure(GridGlass, _game.CurrentFigure);
                 _game.CurrentFigure.Coordinates = newCoordinates;
                 DrawFigure(GridGlass, _game.CurrentFigure);
-                _figurePoint.Y++;
+                _game.FigurePoint = new(_game.FigurePoint.X, _game.FigurePoint.Y + 1);
             }
             else
             {
@@ -280,8 +278,8 @@ namespace Tetris
 
             ClearFigure(GridNext, _game.NextFigure!);
             _game.CurrentFigure = _game.NextFigure;
-            _figurePoint = new(3, _game.CurrentFigure is Stick0Figure ? -3 : -2);
-            _game.CurrentFigure!.Move(_figurePoint);
+            _game.FigurePoint = new(3, _game.CurrentFigure is Stick0Figure ? -3 : -2);
+            _game.CurrentFigure!.Move(_game.FigurePoint);
             _game.NextFigure = FigureGenerator.GetRandomFigure();
             DrawFigure(GridNext, _game.NextFigure);
         }
@@ -295,7 +293,7 @@ namespace Tetris
         private void Rotate()
         {
             Figure rotatedFigure = _game.CurrentFigure!.Rotate();
-            rotatedFigure.Move(_figurePoint);
+            rotatedFigure.Move(_game.FigurePoint);
 
             if (IsMovingValid(rotatedFigure.Coordinates))
             {

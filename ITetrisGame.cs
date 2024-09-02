@@ -9,5 +9,7 @@
         internal Figure CurrentFigure { get; set; }
 
         internal Figure NextFigure { get; set; }
+
+        internal Coordinate FigurePoint { get; set; }
     }
 }
