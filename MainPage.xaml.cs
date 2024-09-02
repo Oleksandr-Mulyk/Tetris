@@ -14,10 +14,6 @@ namespace Tetris
 
         private readonly IDispatcherTimer _actionTimer;
 
-        private int _score = 0;
-
-        private int _level = 1;
-
         public MainPage()
         {
             InitializeComponent();
@@ -71,10 +67,10 @@ namespace Tetris
                 }
             }
 
-            _score = 0;
+            _game.Score = 0;
             _game.NextFigure = null;
             _game.CurrentFigure = null;
-            LabelScore.Text = _score.ToString("000000");
+            LabelScore.Text = _game.Score.ToString("000000");
             LabelGameover.Text = string.Empty;
         }
 
@@ -247,7 +243,7 @@ namespace Tetris
                     }
                 }
 
-                _score += fullLines.Count switch
+                _game.Score += fullLines.Count switch
                 {
                     1 => 100,
                     2 => 300,
@@ -256,15 +252,15 @@ namespace Tetris
                     _ => 0
                 };
 
-                LabelScore.Text = _score.ToString("000000");
+                LabelScore.Text = _game.Score.ToString("000000");
 
-                if (_level < 10 && _score >= (_level) * 10000)
+                if (_game.Level < 10 && _game.Score >= (_game.Level) * 10000)
                 {
-                    ++_level;
+                    ++_game.Level;
                     _mainTimer.Stop();
-                    _mainTimer.Interval = TimeSpan.FromSeconds(1 + 0.1 - _level / 10.0);
+                    _mainTimer.Interval = TimeSpan.FromSeconds(1 + 0.1 - _game.Level / 10.0);
                     _mainTimer.Start();
-                    LabelLevel.Text = "Level: " + _level;
+                    LabelLevel.Text = "Level: " + _game.Level;
                 }
             }
         }

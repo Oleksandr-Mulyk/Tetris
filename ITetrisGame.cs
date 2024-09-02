@@ -11,5 +11,9 @@
         internal Figure NextFigure { get; set; }
 
         internal Coordinate FigurePoint { get; set; }
+
+        internal int Score { get; set; }
+
+        internal int Level { get; set; }
     }
 }
