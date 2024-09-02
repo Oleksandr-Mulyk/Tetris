@@ -7,5 +7,7 @@
         internal Size FigureSize { get; set; }
 
         internal Figure CurrentFigure { get; set; }
+
+        internal Figure NextFigure { get; set; }
     }
 }

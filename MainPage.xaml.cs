@@ -14,8 +14,6 @@ namespace Tetris
 
         private readonly IDispatcherTimer _actionTimer;
 
-        private Figure? _nextFigure;
-
         private Coordinate _figurePoint;
 
         private int _score = 0;
@@ -76,7 +74,7 @@ namespace Tetris
             }
 
             _score = 0;
-            _nextFigure = null;
+            _game.NextFigure = null;
             _game.CurrentFigure = null;
             LabelScore.Text = _score.ToString("000000");
             LabelGameover.Text = string.Empty;
@@ -136,23 +134,23 @@ namespace Tetris
 
         private void GameStart()
         {
-            bool nextFigureNeded = _nextFigure == null || _game.CurrentFigure == null;
+            bool nextFigureNeded = _game.NextFigure == null || _game.CurrentFigure == null;
 
             if (_game.CurrentFigure == null)
             {
-                _game.CurrentFigure = _nextFigure ?? FigureGenerator.GetRandomFigure();
+                _game.CurrentFigure = _game.NextFigure ?? FigureGenerator.GetRandomFigure();
                 _figurePoint = new(3, _game.CurrentFigure is Stick0Figure ? -3 : -2);
                 _game.CurrentFigure!.Move(_figurePoint);
             }
 
             if (nextFigureNeded)
             {
-                if (_nextFigure != null)
+                if (_game.NextFigure != null)
                 {
-                    ClearFigure(GridNext, _nextFigure);
+                    ClearFigure(GridNext, _game.NextFigure);
                 }
-                _nextFigure = FigureGenerator.GetRandomFigure();
-                DrawFigure(GridNext, _nextFigure);
+                _game.NextFigure = FigureGenerator.GetRandomFigure();
+                DrawFigure(GridNext, _game.NextFigure);
             }
 
             _mainTimer.Start();
@@ -280,12 +278,12 @@ namespace Tetris
                 _glassCellFilled[coordinate.X, coordinate.Y] = true;
             }
 
-            ClearFigure(GridNext, _nextFigure!);
-            _game.CurrentFigure = _nextFigure;
+            ClearFigure(GridNext, _game.NextFigure!);
+            _game.CurrentFigure = _game.NextFigure;
             _figurePoint = new(3, _game.CurrentFigure is Stick0Figure ? -3 : -2);
             _game.CurrentFigure!.Move(_figurePoint);
-            _nextFigure = FigureGenerator.GetRandomFigure();
-            DrawFigure(GridNext, _nextFigure);
+            _game.NextFigure = FigureGenerator.GetRandomFigure();
+            DrawFigure(GridNext, _game.NextFigure);
         }
 
         private void Gameover()
