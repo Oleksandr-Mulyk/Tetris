@@ -14,8 +14,6 @@ namespace Tetris
 
         private readonly IDispatcherTimer _actionTimer;
 
-        private Figure? _currentFigure;
-
         private Figure? _nextFigure;
 
         private Coordinate _figurePoint;
@@ -79,7 +77,7 @@ namespace Tetris
 
             _score = 0;
             _nextFigure = null;
-            _currentFigure = null;
+            _game.CurrentFigure = null;
             LabelScore.Text = _score.ToString("000000");
             LabelGameover.Text = string.Empty;
         }
@@ -138,13 +136,13 @@ namespace Tetris
 
         private void GameStart()
         {
-            bool nextFigureNeded = _nextFigure == null || _currentFigure == null;
+            bool nextFigureNeded = _nextFigure == null || _game.CurrentFigure == null;
 
-            if (_currentFigure == null)
+            if (_game.CurrentFigure == null)
             {
-                _currentFigure = _nextFigure ?? FigureGenerator.GetRandomFigure();
-                _figurePoint = new(3, _currentFigure is Stick0Figure ? -3 : -2);
-                _currentFigure!.Move(_figurePoint);
+                _game.CurrentFigure = _nextFigure ?? FigureGenerator.GetRandomFigure();
+                _figurePoint = new(3, _game.CurrentFigure is Stick0Figure ? -3 : -2);
+                _game.CurrentFigure!.Move(_figurePoint);
             }
 
             if (nextFigureNeded)
@@ -162,42 +160,42 @@ namespace Tetris
 
         private void MoveLeft()
         {
-            List<Coordinate> newCoordinates = _currentFigure!.Coordinates.Select(coordinate => new Coordinate(--coordinate.X, coordinate.Y)).ToList();
+            List<Coordinate> newCoordinates = _game.CurrentFigure!.Coordinates.Select(coordinate => new Coordinate(--coordinate.X, coordinate.Y)).ToList();
             if (IsMovingValid(newCoordinates))
             {
-                ClearFigure(GridGlass, _currentFigure);
-                _currentFigure.Coordinates = newCoordinates;
-                DrawFigure(GridGlass, _currentFigure);
+                ClearFigure(GridGlass, _game.CurrentFigure);
+                _game.CurrentFigure.Coordinates = newCoordinates;
+                DrawFigure(GridGlass, _game.CurrentFigure);
                 _figurePoint.X--;
             }
         }
 
         private void MoveRight()
         {
-            List<Coordinate> newCoordinates = _currentFigure!.Coordinates.Select(coordinate => new Coordinate(++coordinate.X, coordinate.Y)).ToList();
+            List<Coordinate> newCoordinates = _game.CurrentFigure!.Coordinates.Select(coordinate => new Coordinate(++coordinate.X, coordinate.Y)).ToList();
             if (IsMovingValid(newCoordinates))
             {
-                ClearFigure(GridGlass, _currentFigure);
-                _currentFigure.Coordinates = newCoordinates;
-                DrawFigure(GridGlass, _currentFigure);
+                ClearFigure(GridGlass, _game.CurrentFigure);
+                _game.CurrentFigure.Coordinates = newCoordinates;
+                DrawFigure(GridGlass, _game.CurrentFigure);
                 _figurePoint.X++;
             }
         }
 
         private void MoveDown()
         {
-            List<Coordinate> newCoordinates = _currentFigure!.Coordinates.Select(coordinate => new Coordinate(coordinate.X, ++coordinate.Y)).ToList();
+            List<Coordinate> newCoordinates = _game.CurrentFigure!.Coordinates.Select(coordinate => new Coordinate(coordinate.X, ++coordinate.Y)).ToList();
             if (IsMovingValid(newCoordinates))
             {
-                ClearFigure(GridGlass, _currentFigure);
-                _currentFigure.Coordinates = newCoordinates;
-                DrawFigure(GridGlass, _currentFigure);
+                ClearFigure(GridGlass, _game.CurrentFigure);
+                _game.CurrentFigure.Coordinates = newCoordinates;
+                DrawFigure(GridGlass, _game.CurrentFigure);
                 _figurePoint.Y++;
             }
             else
             {
                 bool gameIsOver = false;
-                foreach (Coordinate coordinate in _currentFigure!.Coordinates)
+                foreach (Coordinate coordinate in _game.CurrentFigure!.Coordinates)
                 {
                     if (coordinate.Y < 0)
                     {
@@ -277,15 +275,15 @@ namespace Tetris
 
         private void NextFigure()
         {
-            foreach (Coordinate coordinate in _currentFigure!.Coordinates)
+            foreach (Coordinate coordinate in _game.CurrentFigure!.Coordinates)
             {
                 _glassCellFilled[coordinate.X, coordinate.Y] = true;
             }
 
             ClearFigure(GridNext, _nextFigure!);
-            _currentFigure = _nextFigure;
-            _figurePoint = new(3, _currentFigure is Stick0Figure ? -3 : -2);
-            _currentFigure!.Move(_figurePoint);
+            _game.CurrentFigure = _nextFigure;
+            _figurePoint = new(3, _game.CurrentFigure is Stick0Figure ? -3 : -2);
+            _game.CurrentFigure!.Move(_figurePoint);
             _nextFigure = FigureGenerator.GetRandomFigure();
             DrawFigure(GridNext, _nextFigure);
         }
@@ -298,14 +296,14 @@ namespace Tetris
 
         private void Rotate()
         {
-            Figure rotatedFigure = _currentFigure!.Rotate();
+            Figure rotatedFigure = _game.CurrentFigure!.Rotate();
             rotatedFigure.Move(_figurePoint);
 
             if (IsMovingValid(rotatedFigure.Coordinates))
             {
-                ClearFigure(GridGlass, _currentFigure);
-                _currentFigure = rotatedFigure;
-                DrawFigure(GridGlass, _currentFigure);
+                ClearFigure(GridGlass, _game.CurrentFigure);
+                _game.CurrentFigure = rotatedFigure;
+                DrawFigure(GridGlass, _game.CurrentFigure);
             }
         }
 
