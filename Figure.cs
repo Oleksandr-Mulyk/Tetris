@@ -4,7 +4,7 @@
     {
         public List<Coordinate> Coordinates { get; set; }
 
-        public Coordinate Point { get; set; } = new (0, 0);
+        public Coordinate Point { get; set; } = new(0, 0);
 
         public void Move(Coordinate point)
         {

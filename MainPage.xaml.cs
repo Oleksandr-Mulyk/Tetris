@@ -70,7 +70,7 @@ namespace Tetris
             {
                 for (int j = 0; j < _game.TetrisGlass.Size.Height; j++)
                 {
-                    borders[i, j].Background = _game.TetrisGlass[i,j] ? MauiColor.FromArgb("#141414") : MauiColor.FromArgb("#919191");
+                    borders[i, j].Background = _game.TetrisGlass[i, j] ? MauiColor.FromArgb("#141414") : MauiColor.FromArgb("#919191");
                     borders[i, j].Stroke = _game.TetrisGlass[i, j] ? MauiColor.FromArgb("#141414") : MauiColor.FromArgb("#6E6E6E");
                 }
             }
@@ -127,7 +127,7 @@ namespace Tetris
             }
         }
 
-        private static void InitializeGlass(Grid grid,int width, int height)
+        private static void InitializeGlass(Grid grid, int width, int height)
         {
             for (int i = 0; i < height; i++)
             {

@@ -4,7 +4,7 @@
     {
         public SquareFigure()
         {
-            Coordinates = [new(1,1), new(2, 1), new(1, 2), new(2, 2)];
+            Coordinates = [new(1, 1), new(2, 1), new(1, 2), new(2, 2)];
         }
 
         protected override Figure GetRotated() => new SquareFigure();

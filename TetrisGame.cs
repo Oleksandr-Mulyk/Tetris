@@ -18,7 +18,7 @@ namespace Tetris
 
         public ITetrisGlass TetrisGlass { get; set; }
 
-        public Size FigureSize { get; set; } = new (4, 4);
+        public Size FigureSize { get; set; } = new(4, 4);
 
         public Figure CurrentFigure { get; set; }
 
@@ -46,7 +46,7 @@ namespace Tetris
 
         public void MoveDown()
         {
-            if (!Move(new (0, 1)))
+            if (!Move(new(0, 1)))
             {
                 bool gameIsOver = false;
                 foreach (Coordinate coordinate in CurrentFigure.Coordinates)
