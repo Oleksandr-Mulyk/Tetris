@@ -1,4 +1,6 @@
-﻿namespace Tetris
+﻿using Microsoft.Extensions.Logging;
+
+namespace Tetris
 {
     public static class MauiProgram
     {

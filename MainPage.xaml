@@ -40,7 +40,7 @@
             </VerticalStackLayout>
         </HorizontalStackLayout>
         
-        <HorizontalStackLayout Grid.Row="2">
+        <HorizontalStackLayout Grid.Row="2" HorizontalOptions="Center">
             <Button x:Name="ButtonLeft" WidthRequest="50" HeightRequest="50" Margin="0, 0, 5, 30" Background="Yellow" />
             <Button x:Name="ButtonDown" WidthRequest="50" HeightRequest="50" Margin="5, 30, 5, 0" Background="Yellow" />
             <Button x:Name="ButtonRight" WidthRequest="50" HeightRequest="50" Margin="5, 0, 0, 30" Background="Yellow" />
