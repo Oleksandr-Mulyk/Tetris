@@ -1,6 +1,4 @@
-﻿using Tetris.Figures;
-
-using MauiColor = Microsoft.Maui.Graphics.Color;
+﻿using MauiColor = Microsoft.Maui.Graphics.Color;
 
 namespace Tetris
 {
@@ -8,9 +6,9 @@ namespace Tetris
     {
         private readonly ITetrisGame _game;
 
-        private readonly IDispatcherTimer _mainTimer;
+        private IDispatcherTimer? _mainTimer;
 
-        private readonly IDispatcherTimer _actionTimer;
+        private IDispatcherTimer? _actionTimer;
 
         private bool _newGame = true;
 
@@ -22,35 +20,46 @@ namespace Tetris
 
             InitializeGlass(GridGlass, _game.TetrisGlass.Size.Width, _game.TetrisGlass.Size.Height);
             InitializeGlass(GridNext, _game.FigureSize.Width, _game.FigureSize.Height);
+            CreateTimers();
 
+            HandleButtons();
+            HandleGameEvents();
+        }
+
+        private void CreateTimers()
+        {
             _mainTimer = Dispatcher.CreateTimer();
             _mainTimer.Interval = TimeSpan.FromSeconds(1);
             _mainTimer.Tick += (s, e) => _game.MoveDown();
 
-            ButtonPause.Pressed += (_, _) => _mainTimer.Stop();
-            ButtonStart.Pressed += (_, _) => GameStart();
-            ButtonReset.Pressed += ButtonReset_Pressed;
-
             _actionTimer = Dispatcher.CreateTimer();
             _actionTimer.Interval = TimeSpan.FromSeconds(0.1);
+        }
 
-            ButtonLeft.Pressed += (sender, _) => MoveButton_Press((Button)sender, _game.MoveLeft);
-            ButtonRight.Pressed += (sender, _) => MoveButton_Press((Button)sender, _game.MoveRight);
-            ButtonDown.Pressed += (sender, _) => MoveButton_Press((Button)sender, _game.MoveDown);
+        private void HandleButtons()
+        {
+            ButtonPause.Pressed += (_, _) => _mainTimer?.Stop();
+            ButtonStart.Pressed += (_, _) => GameStart();
+            ButtonReset.Pressed += ButtonReset_Pressed;
+            ButtonLeft.Pressed += (sender, _) => MoveButton_Press((Button)sender!, _game.MoveLeft);
+            ButtonRight.Pressed += (sender, _) => MoveButton_Press((Button)sender!, _game.MoveRight);
+            ButtonDown.Pressed += (sender, _) => MoveButton_Press((Button)sender!, _game.MoveDown);
             ButtonRotate.Pressed += (_, _) => _game.Rotate();
+        }
 
+        private void HandleGameEvents()
+        {
             _game.FigureMoved += MoveFigure;
             _game.GameOver += Gameover;
             _game.FigureChanged += Game_FigureChanged;
             _game.ScoreChanged += Game_ScoreChanged;
             _game.LevelChanged += Game_LevelChanged;
             _game.GlassLinesRemoved += Game_GlassLinesRemoved;
-
         }
 
         private void Game_FigureChanged()
         {
-            MainPage.ClearGlass(GridNext);
+            ClearGlass(GridNext);
             DrawFigure(GridNext, _game.NextFigure);
         }
 
@@ -76,8 +85,8 @@ namespace Tetris
             _mainTimer?.Stop();
             _game.CreateNewGame();
 
-            MainPage.ClearGlass(GridGlass);
-            MainPage.ClearGlass(GridNext);
+            ClearGlass(GridGlass);
+            ClearGlass(GridNext);
 
             _mainTimer?.Start();
         }
@@ -100,7 +109,7 @@ namespace Tetris
         private void MoveButton_Press(Button button, Action action)
         {
             action();
-            _actionTimer.Tick += actionTimer_Tick;
+            _actionTimer!.Tick += actionTimer_Tick;
             _actionTimer.Start();
 
             void actionTimer_Tick(object? sender, EventArgs e)
@@ -162,7 +171,7 @@ namespace Tetris
                 _newGame = false;
             }
 
-            _mainTimer.Start();
+            _mainTimer?.Start();
         }
 
         private void MoveFigure(List<Coordinate> oldCoordinates)

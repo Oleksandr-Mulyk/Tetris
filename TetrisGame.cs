@@ -18,7 +18,7 @@ namespace Tetris
 
         public ITetrisGlass TetrisGlass { get; set; }
 
-        public Size FigureSize { get; set; }
+        public Size FigureSize { get; set; } = new (4, 4);
 
         public Figure CurrentFigure { get; set; }
 
@@ -28,11 +28,7 @@ namespace Tetris
 
         public int Level { get; set; }
 
-        public TetrisGame()
-        {
-            FigureSize = new(4, 4);
-            CreateNewGame();
-        }
+        public TetrisGame() => CreateNewGame();
 
         public void CreateNewGame()
         {
@@ -88,19 +84,13 @@ namespace Tetris
             return false;
         }
 
-        private bool IsMovingValid(List<Coordinate> coordinates)
-        {
-            foreach (Coordinate coordinate in coordinates)
-            {
-                if (coordinate.X < 0 || coordinate.X >= TetrisGlass.Size.Width || coordinate.Y >= TetrisGlass.Size.Height
-                    || (coordinate.Y >= 0 && TetrisGlass[coordinate.X, coordinate.Y]))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
+        private bool IsMovingValid(List<Coordinate> coordinates) =>
+            coordinates?.Count(coordinate =>
+            coordinate.X < 0
+            || coordinate.X >= TetrisGlass.Size.Width
+            || coordinate.Y >= TetrisGlass.Size.Height
+            || (coordinate.Y >= 0 && TetrisGlass[coordinate.X, coordinate.Y])
+            ) == 0;
 
         private void ChangeFigure()
         {

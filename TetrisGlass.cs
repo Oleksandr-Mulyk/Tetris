@@ -2,13 +2,12 @@
 {
     public class TetrisGlass : ITetrisGlass
     {
-        public Size Size { get; set; }
+        public Size Size { get; set; } = new Size(10, 20);
 
         public bool[,] State { get; set; }
 
         public TetrisGlass()
         {
-            Size = new Size(10, 20);
             State = new bool[Size.Width, Size.Height];
         }
 
