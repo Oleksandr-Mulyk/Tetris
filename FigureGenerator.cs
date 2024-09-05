@@ -6,8 +6,7 @@ namespace Tetris
     {
         internal static Figure GetRandomFigure()
         {
-            Random rnd = new();
-            int figureIndex = rnd.Next(0, 18);
+            int figureIndex = new Random().Next(0, 18);
 
             return figureIndex switch
             {

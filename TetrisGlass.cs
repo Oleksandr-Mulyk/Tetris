@@ -6,10 +6,7 @@
 
         public bool[,] State { get; set; }
 
-        public TetrisGlass()
-        {
-            State = new bool[Size.Width, Size.Height];
-        }
+        public TetrisGlass() => State = new bool[Size.Width, Size.Height];
 
         public bool this[int X, int Y]
         {

@@ -8,11 +8,8 @@
 
         public void Move(Coordinate point)
         {
-            for (int i = 0; i < Coordinates.Count; i++)
-            {
-                Coordinates[i] = Coordinates[i] + point;
-            }
-            Point = Point + point;
+            Coordinates = Coordinates.Select(coordinate => coordinate + point).ToList();
+            Point += point;
         }
 
         public Figure Rotate()
