@@ -1,14 +1,11 @@
 ﻿namespace Tetris
 {
-    internal struct Coordinate
+    public struct Coordinate(int x, int y)
     {
-        internal int X { get; set; }
-        internal int Y { get; set; }
+        public int X { get; set; } = x;
+        public int Y { get; set; } = y;
 
-        internal Coordinate(int x, int y)
-        {
-            X = x;
-            Y = y;
-        }
+        public static Coordinate operator +(Coordinate a, Coordinate b) => new(a.X + b.X, a.Y + b.Y);
+        public static Coordinate operator -(Coordinate a, Coordinate b) => new(a.X - b.X, a.Y - b.Y);
     }
 }

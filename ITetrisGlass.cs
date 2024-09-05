@@ -1,6 +1,6 @@
 ﻿namespace Tetris
 {
-    internal interface ITetrisGlass
+    public interface ITetrisGlass
     {
         public Size Size { get; set; }
 

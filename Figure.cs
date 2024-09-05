@@ -1,23 +1,28 @@
 ﻿namespace Tetris
 {
-    internal abstract class Figure
+    public abstract class Figure
     {
-        internal List<Coordinate> Coordinates { get; set; }
+        public List<Coordinate> Coordinates { get; set; }
 
-        internal void MoveLeft() => Move(new(-1, 0));
+        public Coordinate Point { get; set; } = new (0, 0);
 
-        internal void MoveRight() => Move(new(1, 0));
-
-        internal void MoveDown() => Move(new(0, 1));
-
-        internal void Move(Coordinate point)
+        public void Move(Coordinate point)
         {
             for (int i = 0; i < Coordinates.Count; i++)
             {
-                Coordinates[i] = new(Coordinates[i].X + point.X, Coordinates[i].Y + point.Y);
+                Coordinates[i] = Coordinates[i] + point;
             }
+            Point = Point + point;
         }
 
-        internal abstract Figure Rotate();
+        public Figure Rotate()
+        {
+            Figure figure = GetRotated();
+            figure.Move(Point);
+
+            return figure;
+        }
+
+        protected abstract Figure GetRotated();
     }
 }

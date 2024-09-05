@@ -1,6 +1,6 @@
 ﻿namespace Tetris
 {
-    internal class TetrisGlass : ITetrisGlass
+    public class TetrisGlass : ITetrisGlass
     {
         public Size Size { get; set; }
 

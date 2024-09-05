@@ -1,12 +1,12 @@
 ﻿namespace Tetris.Figures
 {
-    internal class S90Figure : Figure
+    public class S90Figure : Figure
     {
-        internal S90Figure()
+        public S90Figure()
         {
             Coordinates = [new(1, 0), new(1, 1), new(2, 1), new(2, 2)];
         }
 
-        internal override Figure Rotate()=>new S0Figure();
+        protected override Figure GetRotated()=>new S0Figure();
     }
 }
