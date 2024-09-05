@@ -8,7 +8,7 @@
     Title="Tetris">
 
     <ShellContent
-        Title="Home"
+        Title="Tetris"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
