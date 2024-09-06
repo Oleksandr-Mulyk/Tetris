@@ -2,9 +2,9 @@
 
 namespace Tetris
 {
-    internal static class FigureGenerator
+    public static class FigureGenerator
     {
-        internal static Figure GetRandomFigure()
+        public static Figure GetRandomFigure()
         {
             int figureIndex = new Random().Next(0, 18);
 
