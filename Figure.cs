@@ -14,12 +14,12 @@
 
         public Figure Rotate()
         {
-            Figure figure = GetRotated();
+            Figure figure = Rotated;
             figure.Move(Point);
 
             return figure;
         }
 
-        protected abstract Figure GetRotated();
+        protected abstract Figure Rotated { get; }
     }
 }

@@ -24,9 +24,29 @@ namespace Tetris
 
         public Figure NextFigure { get; set; }
 
-        public int Score { get; set; }
+        private int _score;
 
-        public int Level { get; set; }
+        public int Score
+        {
+            get => _score;
+            set
+            {
+                _score = value;
+                ScoreChanged?.Invoke();
+            }
+        }
+
+        private int _level;
+
+        public int Level
+        {
+            get => _level;
+            set
+            {
+                _level = value;
+                LevelChanged?.Invoke();
+            }
+        }
 
         public TetrisGame() => CreateNewGame();
 
@@ -152,12 +172,9 @@ namespace Tetris
                     _ => 0
                 };
 
-                ScoreChanged?.Invoke();
-
                 if (Level < 10 && Score >= (Level) * 10000)
                 {
                     ++Level;
-                    LevelChanged?.Invoke();
                 }
             }
         }

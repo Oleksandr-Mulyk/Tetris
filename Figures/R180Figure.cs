@@ -7,6 +7,6 @@
             Coordinates = [new(2, 0), new(2, 1), new(1, 2), new(2, 2)];
         }
 
-        protected override Figure GetRotated() => new R270Figure();
+        protected override Figure Rotated => new R270Figure();
     }
 }
