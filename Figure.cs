@@ -12,6 +12,8 @@
             Point += point;
         }
 
+        public void Move(int X, int Y) => Move(new Coordinate(X, Y));
+
         public Figure Rotate()
         {
             Figure figure = Rotated;

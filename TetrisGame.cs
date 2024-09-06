@@ -54,19 +54,19 @@ namespace Tetris
         {
             TetrisGlass = new TetrisGlass();
             CurrentFigure = FigureGenerator.GetRandomFigure();
-            CurrentFigure.Move(new(3, CurrentFigure is Stick0Figure ? -3 : -2));
+            CurrentFigure.Move(3, CurrentFigure is Stick0Figure ? -3 : -2);
             NextFigure = FigureGenerator.GetRandomFigure();
             Score = 0;
             Level = 0;
         }
 
-        public void MoveLeft() => Move(new(-1, 0));
+        public void MoveLeft() => Move(-1, 0);
 
-        public void MoveRight() => Move(new(1, 0));
+        public void MoveRight() => Move(1, 0);
 
         public void MoveDown()
         {
-            if (!Move(new(0, 1)))
+            if (!Move(0, 1))
             {
                 bool gameIsOver = false;
                 foreach (Coordinate coordinate in CurrentFigure.Coordinates)
@@ -90,13 +90,13 @@ namespace Tetris
             }
         }
 
-        public bool Move(Coordinate point)
+        private bool Move(int X, int Y)
         {
-            List<Coordinate> newCoordinates = CurrentFigure.Coordinates.Select(coordinate => coordinate + point).ToList();
+            List<Coordinate> newCoordinates = CurrentFigure.Coordinates.Select(coordinate => coordinate + new Coordinate(X, Y)).ToList();
             if (IsMovingValid(newCoordinates))
             {
                 List<Coordinate> oldCoordinates = new(CurrentFigure.Coordinates);
-                CurrentFigure.Move(point);
+                CurrentFigure.Move(X, Y);
                 FigureMoved?.Invoke(oldCoordinates);
                 return true;
             }
@@ -115,7 +115,7 @@ namespace Tetris
         private void ChangeFigure()
         {
             CurrentFigure = NextFigure;
-            CurrentFigure!.Move(new(3, CurrentFigure is Stick0Figure ? -3 : -2));
+            CurrentFigure!.Move(3, CurrentFigure is Stick0Figure ? -3 : -2);
             NextFigure = FigureGenerator.GetRandomFigure();
             FigureChanged?.Invoke();
         }
