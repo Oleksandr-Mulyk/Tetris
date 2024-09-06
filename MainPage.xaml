@@ -28,24 +28,24 @@
         <HorizontalStackLayout Grid.Row="1" HorizontalOptions="Center">
             <VerticalStackLayout Margin="5, 0">
                 <Label Text="Pause" />
-                <Button x:Name="ButtonPause" WidthRequest="30" HeightRequest="30" Background="Yellow" />
+                <Button x:Name="ButtonPause" WidthRequest="30" HeightRequest="30" />
             </VerticalStackLayout>
             <VerticalStackLayout Margin="5, 0">
                 <Label Text="Start" />
-                <Button x:Name="ButtonStart" WidthRequest="30" HeightRequest="30" Background="Yellow" />
+                <Button x:Name="ButtonStart" WidthRequest="30" HeightRequest="30" />
             </VerticalStackLayout>
             <VerticalStackLayout Margin="5, 0">
                 <Label Text="Reset" />
-                <Button x:Name="ButtonReset" WidthRequest="30" HeightRequest="30" Background="Yellow" />
+                <Button x:Name="ButtonReset" WidthRequest="30" HeightRequest="30" />
             </VerticalStackLayout>
         </HorizontalStackLayout>
         
         <HorizontalStackLayout Grid.Row="2">
-            <Button x:Name="ButtonLeft" WidthRequest="50" HeightRequest="50" Margin="0, 0, 5, 30" Background="Yellow" />
-            <Button x:Name="ButtonDown" WidthRequest="50" HeightRequest="50" Margin="5, 30, 5, 0" Background="Yellow" />
-            <Button x:Name="ButtonRight" WidthRequest="50" HeightRequest="50" Margin="5, 0, 0, 30" Background="Yellow" />
+            <Button x:Name="ButtonLeft" WidthRequest="50" HeightRequest="50" Margin="0, 0, 5, 30" />
+            <Button x:Name="ButtonDown" WidthRequest="50" HeightRequest="50" Margin="5, 30, 5, 0" />
+            <Button x:Name="ButtonRight" WidthRequest="50" HeightRequest="50" Margin="5, 0, 0, 30" />
         </HorizontalStackLayout>
 
-        <Button x:Name="ButtonRotate" Grid.Row="2" Grid.Column="1" WidthRequest="100" HeightRequest="100" Background="Yellow" />
+        <Button x:Name="ButtonRotate" Grid.Row="2" Grid.Column="1" WidthRequest="100" HeightRequest="100" />
     </Grid>
 </ContentPage>
