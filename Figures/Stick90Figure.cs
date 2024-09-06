@@ -1,6 +1,6 @@
 ﻿namespace Tetris.Figures
 {
-    public class Stick90Figure : Figure
+    public sealed class Stick90Figure : Figure
     {
         public Stick90Figure()
         {

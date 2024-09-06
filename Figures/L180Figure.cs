@@ -1,6 +1,6 @@
 ﻿namespace Tetris.Figures
 {
-    public class L180Figure : Figure
+    public sealed class L180Figure : Figure
     {
         public L180Figure()
         {

@@ -1,8 +1,8 @@
 ﻿namespace Tetris.Figures
 {
-    internal class R90Figure : Figure
+    public sealed class R90Figure : Figure
     {
-        internal R90Figure()
+        public R90Figure()
         {
             Coordinates = [new(0, 1), new(1, 1), new(2, 1), new(2, 2)];
         }
