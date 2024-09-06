@@ -1,6 +1,6 @@
-﻿using Tetris.Figures;
+﻿using Tetris.Game.Figures;
 
-namespace Tetris
+namespace Tetris.Game
 {
     public static class FigureGenerator
     {

@@ -1,4 +1,7 @@
-﻿using MauiColor = Microsoft.Maui.Graphics.Color;
+﻿using Tetris.Game;
+
+using IntSize = Tetris.Game.Size;
+using MauiColor = Microsoft.Maui.Graphics.Color;
 
 namespace Tetris
 {
@@ -93,7 +96,7 @@ namespace Tetris
 
         private static void ClearGlass(Grid grid)
         {
-            Size size = GetGridSize(grid);
+            IntSize size = GetGridSize(grid);
             Border[,] bordersNext = GetBorderList(grid);
 
             for (int i = 0; i < size.Width; i++)
@@ -190,7 +193,7 @@ namespace Tetris
         private static void ClearFigure(Grid grid, List<Coordinate> oldCoordinates)
         {
             Border[,] borders = GetBorderList(grid);
-            Size gridSize = GetGridSize(grid);
+            IntSize gridSize = GetGridSize(grid);
 
             foreach (Coordinate oldCoordinate in oldCoordinates)
             {
@@ -207,7 +210,7 @@ namespace Tetris
         private static void DrawFigure(Grid grid, Figure figure)
         {
             Border[,] borders = GetBorderList(grid);
-            Size gridSize = GetGridSize(grid);
+            IntSize gridSize = GetGridSize(grid);
 
             foreach (Coordinate coordinate in figure.Coordinates)
             {
@@ -223,7 +226,7 @@ namespace Tetris
         private static Border[,] GetBorderList(Grid grid)
         {
             Border[] borders = grid.Children.Where(child => child is Border).Select(child => (Border)child).ToArray();
-            Size gridSize = GetGridSize(grid);
+            IntSize gridSize = GetGridSize(grid);
 
             Border[,] result = new Border[gridSize.Width, gridSize.Height];
 
@@ -238,6 +241,6 @@ namespace Tetris
             return result;
         }
 
-        private static Size GetGridSize(Grid grid) => new(grid.ColumnDefinitions.Count, grid.RowDefinitions.Count);
+        private static IntSize GetGridSize(Grid grid) => new(grid.ColumnDefinitions.Count, grid.RowDefinitions.Count);
     }
 }

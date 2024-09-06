@@ -1,4 +1,4 @@
-﻿namespace Tetris.Figures
+﻿namespace Tetris.Game.Figures
 {
     public sealed class Z0Figure : Figure
     {
