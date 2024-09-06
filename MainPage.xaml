@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Tetris.MainPage">
 
-    <Grid>
+    <Grid x:Name="GridMain">
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition Height="50" Grid.ColumnSpan="2" />
+            <RowDefinition Height="70" Grid.ColumnSpan="2" />
             <RowDefinition Height="100" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -14,10 +14,10 @@
             <ColumnDefinition Width="120" />
         </Grid.ColumnDefinitions>
 
-        <Grid x:Name="GridGlass" VerticalOptions="Start" />
-        
-        <VerticalStackLayout Grid.Row="0" Grid.Column="1">
-            <Grid x:Name="GridNext" HorizontalOptions="Start" />
+        <Grid x:Name="GridGlass" VerticalOptions="Start" HorizontalOptions="Start" />
+
+        <VerticalStackLayout x:Name="StackInfo" Grid.Row="0" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="Start">
+            <Grid x:Name="GridNext" HorizontalOptions="Start" Padding="0, 10" />
             <Label x:Name="LabelLevel" Text="Level 1" />
             <Label Text="Score" />
             <Label x:Name="LabelScore" Text="000000" />
@@ -25,7 +25,7 @@
         </VerticalStackLayout>
 
 
-        <HorizontalStackLayout Grid.Row="1" HorizontalOptions="Center">
+        <HorizontalStackLayout x:Name="StackAction" Grid.Row="1" HorizontalOptions="Center">
             <VerticalStackLayout Margin="5, 0">
                 <Label Text="Pause" />
                 <Button x:Name="ButtonPause" WidthRequest="30" HeightRequest="30" />
@@ -40,7 +40,7 @@
             </VerticalStackLayout>
         </HorizontalStackLayout>
         
-        <HorizontalStackLayout Grid.Row="2">
+        <HorizontalStackLayout x:Name="StackControl" Grid.Row="2">
             <Button x:Name="ButtonLeft" WidthRequest="50" HeightRequest="50" Margin="0, 0, 5, 30" />
             <Button x:Name="ButtonDown" WidthRequest="50" HeightRequest="50" Margin="5, 30, 5, 0" />
             <Button x:Name="ButtonRight" WidthRequest="50" HeightRequest="50" Margin="5, 0, 0, 30" />
