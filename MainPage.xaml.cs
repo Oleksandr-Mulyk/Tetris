@@ -1,6 +1,6 @@
-﻿using Tetris.Game;
+﻿using Cooconica.TetrisGame;
 
-using IntSize = Tetris.Game.Size;
+using IntSize = Cooconica.TetrisGame.Size;
 using MauiColor = Microsoft.Maui.Graphics.Color;
 
 namespace Tetris

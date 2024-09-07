@@ -122,4 +122,8 @@
 	  </None>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Cooconica.TetrisGame\Cooconica.TetrisGame.csproj" />
+	</ItemGroup>
+
 </Project>
