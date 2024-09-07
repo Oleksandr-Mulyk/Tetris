@@ -18,7 +18,7 @@
 
         <VerticalStackLayout x:Name="StackInfo" Grid.Row="0" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="Start">
             <Grid x:Name="GridNext" HorizontalOptions="Start" Padding="0, 10" />
-            <Label x:Name="LabelLevel" Text="Level 1" />
+            <Label x:Name="LabelSpeed" Text="Speed 0" />
             <Label Text="Score" />
             <Label x:Name="LabelScore" Text="000000" />
             <Label x:Name="LabelGameover" Text="" />

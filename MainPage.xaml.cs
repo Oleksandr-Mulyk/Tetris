@@ -56,7 +56,7 @@ namespace Tetris
             _game.GameOver += Gameover;
             _game.FigureChanged += Game_FigureChanged;
             _game.ScoreChanged += Game_ScoreChanged;
-            _game.LevelChanged += Game_LevelChanged;
+            _game.SpeedChanged += Game_SpeedChanged;
             _game.GlassLinesRemoved += Game_GlassLinesRemoved;
         }
 
@@ -79,7 +79,11 @@ namespace Tetris
             }
         }
 
-        private void Game_LevelChanged() => LabelLevel.Text = "Level " + _game.Level;
+        private void Game_SpeedChanged()
+        {
+            LabelSpeed.Text = "Speed " + _game.Speed;
+            _mainTimer.Interval = TimeSpan.FromSeconds((10 -  _game.Speed) * 0.1);
+        }
 
         private void Game_ScoreChanged() => LabelScore.Text = _game.Score.ToString("000000");
 
