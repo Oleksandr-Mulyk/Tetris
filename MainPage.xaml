@@ -17,6 +17,8 @@
         <Grid x:Name="GridGlass" VerticalOptions="Start" HorizontalOptions="Start" />
 
         <VerticalStackLayout x:Name="StackInfo" Grid.Row="0" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="Start">
+            <Label Text="Hi-Score" />
+            <Label x:Name="LabelHiScore" Text="000000" />
             <Grid x:Name="GridNext" HorizontalOptions="Start" Padding="0, 10" />
             <Label x:Name="LabelSpeed" Text="Speed 0" />
             <Label Text="Score" />

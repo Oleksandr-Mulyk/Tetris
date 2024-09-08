@@ -20,6 +20,10 @@ namespace Tetris
             InitializeComponent();
 
             _game = new TetrisGame();
+            if (int.TryParse(SecureStorage.Default.GetAsync("hi_score").Result, out int hiScore))
+            {
+                _game.HiScore = hiScore;
+            }
 
             InitializeGlass(GridGlass, _game.TetrisGlass.Size.Width, _game.TetrisGlass.Size.Height);
             InitializeGlass(GridNext, _game.FigureSize.Width, _game.FigureSize.Height);
@@ -58,6 +62,7 @@ namespace Tetris
             _game.ScoreChanged += Game_ScoreChanged;
             _game.SpeedChanged += Game_SpeedChanged;
             _game.GlassLinesRemoved += Game_GlassLinesRemoved;
+            _game.HiScoreChanged += Game_HiScoreChanged;
         }
 
         private void Game_FigureChanged()
@@ -86,6 +91,8 @@ namespace Tetris
         }
 
         private void Game_ScoreChanged() => LabelScore.Text = _game.Score.ToString("000000");
+
+        private void Game_HiScoreChanged() => LabelHiScore.Text = _game.HiScore.ToString("000000");
 
         private void ButtonReset_Pressed(object? sender, EventArgs e)
         {
@@ -192,6 +199,7 @@ namespace Tetris
             _newGame = true;
             _mainTimer?.Stop();
             LabelGameover.Text = "GAME OVER";
+            SecureStorage.Default.SetAsync("hi_score", _game.HiScore.ToString());
         }
 
         private static void ClearFigure(Grid grid, List<Coordinate> oldCoordinates)
